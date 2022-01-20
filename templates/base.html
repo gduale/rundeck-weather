@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+  <style>
+  main {
+    padding: 2rem;
+    margin: auto;
+  }
+  #content {
+      position: relative;
+  }
+  #content img {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+  }
+  </style>
+
+  <main>
+      <h1>Rundeck weather</h1>
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item {{ job_digest_active }}">
+              <a class="nav-link" href="jobs-digest.html">Jobs digest</a>
+            </li>
+            <li class="nav-item {{ job_running_active }}">
+              <a class="nav-link" href="jobs-running-and-scheduled.html">Jobs running and scheduled</a>
+            </li>
+            <li class="nav-item {{ job_commit_active }}">
+              <a class="nav-link" href="jobs-to-commit.html">Jobs to commit</a>
+            </li>
+          </ul>
+          {% if job_digest_active %}
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="filtre">
+          </form>
+          {% endif %}
+        </div>
+      </nav>
+
+<br />
+<div class="float-right"><i>Page generated the {{ the_date }}</i></div><br />
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+  <script>
+  $("#filtre").keyup(function() {
+    filtre = $("#filtre").val();
+    if (filtre == '') {
+      $("tbody tr").show();
+      return;
+    }
+    regex = new RegExp(filtre, 'gi');
+    $("tbody tr").each(function() {
+      if ($(this).text().match(regex)) {
+        $(this).show();
+      }
+      else {
+        $(this).hide();
+      }
+    });
+  });
+
+  </script>
+  <br />
+    {% block content%}
+
+    {% endblock %}
+
+
+</div>
+<hr>
+<i>Rundeck Weather version {{ rundeck_weather_version }}</i>
+</main>
+</body>
+</html>

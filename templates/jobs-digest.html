@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title%}Rundeck weather - jobs digest{% endblock %}
+
+{% block content %}
+<h1>Jobs digest</h1>
+<br />
+<div class="col-sm">
+  <table class="table" id="myTable">
+    <thead class="thead-dark">
+      <tr>
+        <th onclick="sortTable(0)">Project &#8593; &#8595;</th>
+        <th onclick="sortTable(1)">Job &#8593; &#8595;</th>
+        <th onclick="sortTable(2)">Status &#8593; &#8595;</th>
+        <th onclick="sortTable(3)">Start date &#8593; &#8595;</th>
+        <th onclick="sortTable(4)">End date &#8593; &#8595;</th>
+      </tr>
+    </thead>
+    <tbody>
+
+{% for p,j in final.items() %}
+  {% for k,job in j.items() %}
+
+{% set testing = 'it worked' %}
+
+
+{% if job["status"] == "succeeded": %}
+  {% set css = "bg-success" %}
+{% endif %}
+{% if job["status"] == "failed": %}
+  {% set css = "bg-danger" %}
+{% endif %}
+{% if job["status"] == "aborted": %}
+  {% set css = "bg-secondary" %}
+{% endif %}
+
+
+    <tr><td>{{ p }}</td>
+      <td>{{ k }}</td>
+      <td class='{{ css }}'><a target='_blank' class='text-light' href='{{ job["url"] }}'>{{ job["status"] }}</a></td>
+      <td class='{{ css }}'>{{ job["start_date"][0] }} at {{ job["start_hour"] }}</td>
+      <td class='{{ css }}'>{{ job["end_date"][0] }} at {{ job["end_hour"] }}</td>
+
+{%- endfor %}
+{%- endfor %}
+
+    </tbody>
+    </table>
+{% endblock %}

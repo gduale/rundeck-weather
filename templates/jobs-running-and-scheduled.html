@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title%}Rundeck weather - jobs runnig and scheduled{% endblock %}
+
+{% block content %}
+<h1>Jobs running and scheduled</h1>
+<br />
+{% for k,v in running_jobs.items() %}
+<h2>Project: {{ k }}</h2>
+<ul>
+  {% for i in v %}
+  {% if i.status == "scheduled" %}
+    <li><a href="{{ i.url }}" target="_blank">{{ i.job }}</a> ({{ i.status }} by {{ i.user }})</li>
+  {% else %}
+    <li><a href="{{ i.url }}" target="_blank">{{ i.job }}</a> ({{ i.status }})</li>
+  {% endif %}
+  {% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}

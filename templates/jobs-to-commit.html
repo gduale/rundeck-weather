@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title%}Rundeck weather - jobs to commit{% endblock %}
+
+{% block content %}
+<h1>Jobs to commit or with no SCM configured</h1>
+<br />
+{% for k,v in final.items() %}
+<h2>Project: {{ k }}</h2>
+<ul>
+  <li><a href="{{ v[0] }}" target="_blank">{{ v[1] }}</a></li>
+</ul>
+{% endfor %}
+{% endblock %}
