@@ -14,6 +14,7 @@ codeglobal=0
 DSTAPP="/opt/rundeck-weather"
 DSTHTTP="/srv/http/rundeck-weather"
 mkdir -p $DSTAPP
+mkdir -p $DSTHTTP
 
 #Ensure requests is installed
 r=$(pip3 show requests)
