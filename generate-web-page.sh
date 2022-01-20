@@ -11,7 +11,7 @@ okfail() {
 }
 codeglobal=0
 
-DSTAPP="/opt/ve/rundeck-weather"
+DSTAPP="/opt/rundeck-weather"
 DSTHTTP="/srv/http/rundeck-weather"
 mkdir -p $DSTAPP
 
